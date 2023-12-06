@@ -1,21 +1,11 @@
 import Image from "next/image";
 import DayState from "@/components/DayState";
 import Link from "next/link";
+import { kv } from "@vercel/kv";
 
-export default function Home() {
-  const habits = {
-    'reunião': {
-      '2023-12-05': true,
-      '2023-12-04': false,
-      '2023-12-03': false
-    },
-
-    'Relátorio': {
-      '2023-12-05': false,
-      '2023-12-04': true,
-      '2023-12-03': true
-    },
-  };
+export default async function Home() {
+  const habits = await kv.hgetall("habits");
+  
 
   const today = new Date();
   const todayWeekDay = today.getDay();
